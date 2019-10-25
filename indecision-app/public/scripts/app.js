@@ -5,97 +5,74 @@ console.log("app.js is running");
 var app = {
   title: "Indecisious App",
   subtitle: "Put your life in the hands of a computer!!",
-  options: ["One", "Two"]
+  options: []
 };
 
 //JSX - JavaScript XML
-var template = React.createElement(
-  "div",
-  null,
-  React.createElement(
-    "h1",
-    null,
-    " ",
-    app.title,
-    " "
-  ),
-  app.subtitle && React.createElement(
-    "p",
-    null,
-    " ",
-    app.subtitle,
-    " "
-  ),
-  React.createElement(
-    "span",
-    null,
-    "Books"
-  ),
-  app.options.length > 0 ? React.createElement(
-    "ol",
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
+  var option = e.target.elements.option.value;
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = "";
+    render();
+  }
+};
+var removeAll = function removeAll() {
+  app.options.length = 0;
+  render();
+};
+
+//Create remove all button above list
+//onclick handler reset it back to 0 wipe the array and re-render
+//Render function
+var render = function render() {
+  var template = React.createElement(
+    "div",
     null,
     React.createElement(
-      "li",
+      "h1",
       null,
-      app.options[0],
+      " ",
+      app.title,
+      " "
+    ),
+    app.subtitle && React.createElement(
+      "p",
+      null,
+      " ",
+      app.subtitle,
+      " "
+    ),
+    app.options.length > 0 ? "Here are your options" : "No options!!",
+    React.createElement(
+      "p",
+      null,
+      app.options.length,
       " "
     ),
     React.createElement(
-      "li",
-      null,
-      app.options[1],
-      " "
+      "form",
+      { onSubmit: onFormSubmit },
+      React.createElement("input", { type: "text", name: "option" }),
+      React.createElement(
+        "button",
+        null,
+        "Add Option "
+      ),
+      React.createElement("br", null),
+      React.createElement("br", null),
+      React.createElement(
+        "button",
+        { onClick: removeAll },
+        "Remove All"
+      )
     )
-  ) : undefined
-);
-
-//__________________
-//using if statements
-//using ternary oeratiors
-function getLocation(location) {
-  if (location) {
-    return React.createElement(
-      "p",
-      null,
-      "location: ",
-      location,
-      " "
-    );
-  }
-}
-
-var user = {
-  name: "Michael Jordan",
-  age: 12
-  //location: "Houston Texas"
+  );
+  ReactDOM.render(template, appRoot);
 };
-var templateTwo = React.createElement(
-  "div",
-  null,
-  React.createElement(
-    "h1",
-    null,
-    user.name
-  ),
-  user.name ? React.createElement(
-    "p",
-    null,
-    user.name,
-    " "
-  ) : undefined,
-  user.age >= 18 && React.createElement(
-    "p",
-    null,
-    "Age:",
-    user.age
-  ),
-  getLocation(user.location)
-);
-// Create a templateTwo var jsx
-//div  h1 =>Edgar Rojas
-//p -> Age:44
-//p-> location
-//render templateTwo
+
 var appRoot = document.getElementById("app");
 
-ReactDOM.render(template, appRoot);
+//eactDOM.render(template, appRoot);
+render();

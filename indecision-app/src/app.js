@@ -3,54 +3,48 @@ console.log("app.js is running");
 const app = {
   title: "Indecisious App",
   subtitle: "Put your life in the hands of a computer!!",
-  options: ["One", "Two"]
+  options: []
 };
 
 //JSX - JavaScript XML
-const template = (
-  <div>
-    <h1> {app.title} </h1>
-    {app.subtitle && <p> {app.subtitle} </p>}
-
-    <span>Books</span>
-    {app.options.length > 0 ? (
-      <ol>
-        <li>{app.options[0]} </li>
-        <li>{app.options[1]} </li>
-      </ol>
-    ) : (
-      undefined
-    )}
-  </div>
-);
-
-//__________________
-//using if statements
-//using ternary oeratiors
-function getLocation(location) {
-  if (location) {
-    return <p>location: {location} </p>;
+const onFormSubmit = e => {
+  e.preventDefault();
+  const option = e.target.elements.option.value;
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = "";
+    render();
   }
-}
-
-const user = {
-  name: "Michael Jordan",
-  age: 12
-  //location: "Houston Texas"
 };
-const templateTwo = (
-  <div>
-    <h1>{user.name}</h1>
-    {user.name ? <p>{user.name} </p> : undefined}
-    {user.age >= 18 && <p>Age:{user.age}</p>}
-    {getLocation(user.location)}
-  </div>
-);
-// Create a templateTwo var jsx
-//div  h1 =>Edgar Rojas
-//p -> Age:44
-//p-> location
-//render templateTwo
+const removeAll = () => {
+  app.options.length = 0;
+  render();
+};
+
+//Create remove all button above list
+//onclick handler reset it back to 0 wipe the array and re-render
+//Render function
+const render = () => {
+  const template = (
+    <div>
+      <h1> {app.title} </h1>
+      {app.subtitle && <p> {app.subtitle} </p>}
+
+      {app.options.length > 0 ? "Here are your options" : "No options!!"}
+      <p>{app.options.length} </p>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="option" />
+        <button>Add Option </button>
+        <br />
+        <br />
+        <button onClick={removeAll}>Remove All</button>
+      </form>
+    </div>
+  );
+  ReactDOM.render(template, appRoot);
+};
+
 const appRoot = document.getElementById("app");
 
-ReactDOM.render(template, appRoot);
+//eactDOM.render(template, appRoot);
+render();
