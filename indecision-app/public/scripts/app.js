@@ -7,14 +7,14 @@ var template = React.createElement(
   "div",
   null,
   React.createElement(
-    "p",
-    null,
-    " This is a big big change JSX from app.js "
-  ),
-  React.createElement(
     "h1",
     null,
     " This is a header "
+  ),
+  React.createElement(
+    "p",
+    null,
+    " This is a big big change JSX from app.js "
   ),
   React.createElement(
     "ol",
@@ -31,23 +31,31 @@ var template = React.createElement(
     )
   )
 );
+var user = {
+  name: "Michael Jordan",
+  age: 52,
+  location: "Houston Texas"
+};
 var templateTwo = React.createElement(
   "div",
   null,
   React.createElement(
     "h1",
     null,
-    "Michael Jordan"
+    user.name
   ),
   React.createElement(
     "p",
     null,
-    "Age: 47"
+    "Age:",
+    user.age
   ),
   React.createElement(
     "p",
     null,
-    "Location: Los Angeles Californina"
+    "Location: ",
+    user.location,
+    " "
   )
 );
 // Create a templateTwo var jsx
