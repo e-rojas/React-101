@@ -24,6 +24,7 @@ const template = (
   </div>
 );
 
+//__________________
 //using if statements
 //using ternary oeratiors
 function getLocation(location) {

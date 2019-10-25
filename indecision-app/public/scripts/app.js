@@ -49,6 +49,7 @@ var template = React.createElement(
   ) : undefined
 );
 
+//__________________
 //using if statements
 //using ternary oeratiors
 function getLocation(location) {
