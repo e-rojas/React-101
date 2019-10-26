@@ -20,24 +20,32 @@ const removeAll = () => {
   app.options.length = 0;
   render();
 };
-
-//Create remove all button above list
-//onclick handler reset it back to 0 wipe the array and re-render
+const onMakeDesicion = () => {
+  const randomNumber = Math.floor(Math.random() * app.options.length);
+  console.log(randomNumber);
+};
 //Render function
 const render = () => {
   const template = (
     <div>
       <h1> {app.title} </h1>
       {app.subtitle && <p> {app.subtitle} </p>}
-
       {app.options.length > 0 ? "Here are your options" : "No options!!"}
+      <ol>
+        {app.options.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ol>
       <p>{app.options.length} </p>
+      <button disabled={app.options.length === 0} onClick={onMakeDesicion}>
+        What should I do
+      </button>
+      <button onClick={removeAll}>Remove All</button>
+      <br />
+      <br />
       <form onSubmit={onFormSubmit}>
         <input type="text" name="option" />
         <button>Add Option </button>
-        <br />
-        <br />
-        <button onClick={removeAll}>Remove All</button>
       </form>
     </div>
   );
