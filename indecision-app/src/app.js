@@ -1,58 +1,65 @@
-console.log("app.js is running");
-
-const app = {
-  title: "Indecisious App",
-  subtitle: "Put your life in the hands of a computer!!",
-  options: []
-};
-
-//JSX - JavaScript XML
-const onFormSubmit = e => {
-  e.preventDefault();
-  const option = e.target.elements.option.value;
-  if (option) {
-    app.options.push(option);
-    e.target.elements.option.value = "";
-    render();
+//Parent componet
+class IndecisionApp extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <Action />
+        <Options />
+        <AddOption />
+      </div>
+    );
   }
-};
-const removeAll = () => {
-  app.options.length = 0;
-  render();
-};
-const onMakeDesicion = () => {
-  const randomNumber = Math.floor(Math.random() * app.options.length);
-  console.log(randomNumber);
-};
-//Render function
-const render = () => {
-  const template = (
-    <div>
-      <h1> {app.title} </h1>
-      {app.subtitle && <p> {app.subtitle} </p>}
-      {app.options.length > 0 ? "Here are your options" : "No options!!"}
-      <ol>
-        {app.options.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ol>
-      <p>{app.options.length} </p>
-      <button disabled={app.options.length === 0} onClick={onMakeDesicion}>
-        What should I do
-      </button>
-      <button onClick={removeAll}>Remove All</button>
-      <br />
-      <br />
-      <form onSubmit={onFormSubmit}>
-        <input type="text" name="option" />
-        <button>Add Option </button>
-      </form>
-    </div>
-  );
-  ReactDOM.render(template, appRoot);
-};
+}
+//Header component
+class Header extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Indecision</h1>
+        <h2>Put your life in the hands of a computer!</h2>
+      </div>
+    );
+  }
+}
+//Action component
+class Action extends React.Component {
+  render() {
+    return (
+      <div>
+        <button>what should I do?</button>
+      </div>
+    );
+  }
+}
+//Options component rendering child Option component
+class Options extends React.Component {
+  render() {
+    return (
+      <div>
+        <Option />
+      </div>
+    );
+  }
+}
+//Option component
+class Option extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Individual Option </p>
+      </div>
+    );
+  }
+}
+class AddOption extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Type Option Here!!!</p>
+      </div>
+    );
+  }
+}
 
-const appRoot = document.getElementById("app");
-
-//eactDOM.render(template, appRoot);
-render();
+ReactDOM.render(<IndecisionApp />, document.getElementById("app"));
